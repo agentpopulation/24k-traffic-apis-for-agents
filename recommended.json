@@ -1,0 +1,939 @@
+{
+  "pack": "traffic-api-endpoints",
+  "title": "Traffic and roadworks API endpoints",
+  "snapshot": "2026-11-15",
+  "tested": {
+    "min": "2026-11-10",
+    "max": "2026-11-15",
+    "text": "10–15 Nov 2026"
+  },
+  "note": "On the date in last_tested (IST), one GET to the URL, sent with no key, returned HTTP 2xx and a non-empty data body. HTML pages and empty results did not pass. The format column records what came back. This is a test result for that date, not a promise that the URL answers today. Licences, terms, rate limits, accuracy and freshness were not reviewed. Endpoints are URLs, not separate APIs; many share one service.",
+  "licence": "CC BY 4.0: credit AgentPopulation and link https://agentpopulation.com",
+  "focus": "title matches /(?<!digi)traffic|trafic|traffico|tráfico|verkehr|verkeer|liikenne|\\broads?\\b|street|straße|strasse|motorway|highway|freeway|autobahn|interstate|crash|collision|accident|unfall|incident|roadwork|baustell|construction site|work zone|road ?clos|lane clos|detour|umleitung|sperrung|signal|ampel|counting (station|point)|zählstelle|aadt|congestion|speed|travel time|intersection|junction|vehicle|fahrzeug|cycl|bicycle|\\bbikes?\\b|pedestrian|tms|roadway|road_|roads_|_road|tempo[- ]?30|\\bdtv\\b|counter|counts?\\b|truck|lorr|baumaßnahm|railroad crossing|signs?\\b|citation|weigh-in-motion|school zone/i AND NOT title matches /vessel|\\bships?\\b|shipping|port call|maritime|seaport|\\bports?\\b|railway|\\brail\\b|\\btrains?\\b|air traffic|air passenger|airport|aviation|airline|aircraft|flight|buoy|cableway|ropeway|seilbahn/i AND NOT title matches /traffic areas?|verkehrsfläch|type of use/i AND NOT title matches /geotherm|species|flora|traffic stops?\\b|well-being|trafficking|forces of nature|gateway service/i AND NOT host is apps.villingen-schwenningen.de AND NOT (host is genesis.destatis.de AND NOT title matches /accident|unfall|road|traffic participation|vehicle|motor/i)",
+  "buckets": [
+    {
+      "id": "agent",
+      "name": "Agent tools",
+      "title": "Traffic counts, road weather and incident layers an agent can query",
+      "filter": "tags has agent-ready AND title matches /(?<!digi)traffic|trafic|traffico|tráfico|verkehr|verkeer|liikenne|\\broads?\\b|street|straße|strasse|motorway|highway|freeway|autobahn|interstate|crash|collision|accident|unfall|incident|roadwork|baustell|construction site|work zone|road ?clos|lane clos|detour|umleitung|sperrung|signal|ampel|counting (station|point)|zählstelle|aadt|congestion|speed|travel time|intersection|junction|vehicle|fahrzeug|cycl|bicycle|\\bbikes?\\b|pedestrian|tms|roadway|road_|roads_|_road|tempo[- ]?30|\\bdtv\\b|counter|counts?\\b|truck|lorr|baumaßnahm|railroad crossing|signs?\\b|citation|weigh-in-motion|school zone/i AND NOT title matches /vessel|\\bships?\\b|shipping|port call|maritime|seaport|\\bports?\\b|railway|\\brail\\b|\\btrains?\\b|air traffic|air passenger|airport|aviation|airline|aircraft|flight|buoy|cableway|ropeway|seilbahn/i AND NOT title matches /violation|citation/i",
+      "endpoints": 9352,
+      "notes": [
+        "6276 of these are map-layer queries that asked for a few records (resultRecordCount); raise it or page through for the whole layer."
+      ],
+      "criteria": "Services in this pack with the most endpoints that match this bucket and are tagged agent-ready (no key sent in the test call, JSON body, passed a data call). Ties go to the service with more country codes, then by name. Only services with at least one bucket row that matches the focus rule are listed, and the sample comes from those rows; the counts cover the whole bucket. The sample URL is the first row by URL sort after preferring, in this order: rows that match the bucket's sample preference when it has one, rows that return values rather than describe a dataset or a service (not ERDDAP /info/ pages, OGC GetCapabilities requests, bare OWS addresses, PxWeb tables, UN SDG series lists, Statistics Canada download pointers, WorldPop listings, GTFS validation reports, untitled rows or service root addresses), and agent-ready rows. Sample preference in this bucket: url contains \"tie.digitraffic.fi/api/tms/\". Services named \"ArcGIS organization\" hold map layers from many owners and are added only when fewer than 5 other services match.",
+      "services": [
+        {
+          "service": "Hamburg",
+          "display": "Hamburg",
+          "host": "tld.iot.hamburg.de",
+          "endpoints_in_bucket": 836,
+          "endpoints_in_pack": 836,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://tld.iot.hamburg.de/v1.0/Datastreams?$filter=properties/serviceName%20eq%20%27HH_STA_traffic_lights%27%20and%20properties/layerName%20eq%20%27primary_signal%27&$expand=Observations($orderby=phenomenonTime%20desc;$top=10)&$orderby=id&$top=100",
+          "sample_title": "Traffic Lights Data Hamburg - STA Layerabfrage: Primärsignal je Fahrspurbeziehung - letzte 10 Beobachtungswerte (JSON)",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "Nationalhighways",
+          "display": "Nationalhighways",
+          "host": "webtris.nationalhighways.co.uk",
+          "endpoints_in_bucket": 336,
+          "endpoints_in_pack": 336,
+          "country_codes": [
+            "GB"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://webtris.nationalhighways.co.uk/api/v1.0/areas",
+          "sample_title": "National Highways: WebTRIS traffic data API",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "Transparenzportal Hamburg",
+          "display": "Transparenzportal Hamburg",
+          "host": "archiv.transparenz.hamburg.de",
+          "endpoints_in_bucket": 162,
+          "endpoints_in_pack": 1298,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 5,
+          "sample_url": "https://archiv.transparenz.hamburg.de/hmbtgarchive/HMDK/datastreams_111908_snap_7.JSON",
+          "sample_title": "Showcase Traffic Light Forecast Hamburg - STA Layerabfrage: Primärsignal je Fahrspurbezieheung - letzte 10 Beobachtungswerte (JSON)",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "Kingston University (ArcGIS Online)",
+          "display": "Kingston University (ArcGIS Online)",
+          "host": "services6.arcgis.com",
+          "endpoints_in_bucket": 154,
+          "endpoints_in_pack": 190,
+          "country_codes": [
+            "GB",
+            "US"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://services6.arcgis.com/NonisTlG4TcVAsSk/arcgis/rest/services/1) Merge Traffic Data 2018 Group 1 Group 2 Traffic Data/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&resultRecordCount=5&f=json",
+          "sample_title": "1) Merge Traffic Data 2018 Group 1 Group 2 Traffic Data",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "Vvo Online",
+          "display": "Vvo Online",
+          "host": "efa.vvo-online.de",
+          "endpoints_in_bucket": 144,
+          "endpoints_in_pack": 273,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 2,
+          "sample_url": "https://efa.vvo-online.de/VMSSL3/XML_DM_REQUEST?outputFormat=rapidJSON&type_dm=stop&name_dm=de%3A06533%3A28298&mode=direct&useRealtime=1&limit=10",
+          "sample_title": "VVO Verkehrsverbund Oberelbe: EFA departure monitor (rapidJSON)",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "Azureedge",
+          "display": "Azureedge",
+          "host": "ghoapi.azureedge.net",
+          "endpoints_in_bucket": 130,
+          "endpoints_in_pack": 130,
+          "country_codes": [
+            "AF",
+            "AG",
+            "AO",
+            "AZ",
+            "BA",
+            "BB",
+            "BD",
+            "BF",
+            "BG",
+            "BI",
+            "BJ",
+            "BN",
+            "BO",
+            "BS",
+            "BT",
+            "BW",
+            "BY",
+            "BZ",
+            "CD",
+            "CF",
+            "CG",
+            "CI",
+            "CM",
+            "CR",
+            "CU",
+            "CV",
+            "CY",
+            "DJ",
+            "DZ",
+            "EE",
+            "EG",
+            "ER",
+            "ET",
+            "FJ",
+            "FM",
+            "GA",
+            "GD",
+            "GE",
+            "GH",
+            "GM",
+            "GN",
+            "GQ",
+            "GT",
+            "GW",
+            "GY",
+            "HN",
+            "HT",
+            "IQ",
+            "IR",
+            "JM",
+            "JO",
+            "KE",
+            "KH",
+            "KI",
+            "KM",
+            "KP",
+            "KW",
+            "KZ",
+            "LA",
+            "LB",
+            "LC",
+            "LK",
+            "LR",
+            "LS",
+            "LT",
+            "LU",
+            "LY",
+            "MA",
+            "MD",
+            "ME",
+            "MG",
+            "MK",
+            "ML",
+            "MM",
+            "MN",
+            "MR",
+            "MT",
+            "MU",
+            "MV",
+            "MW",
+            "MY",
+            "MZ",
+            "NA",
+            "NE",
+            "NG",
+            "NI",
+            "NP",
+            "OM",
+            "PE",
+            "PG",
+            "PH",
+            "PR",
+            "PS",
+            "PY",
+            "QA",
+            "RS",
+            "RU",
+            "RW",
+            "SA",
+            "SB",
+            "SC",
+            "SD",
+            "SG",
+            "SI",
+            "SL",
+            "SO",
+            "SR",
+            "SS",
+            "ST",
+            "SV",
+            "SY",
+            "SZ",
+            "TD",
+            "TJ",
+            "TL",
+            "TM",
+            "TN",
+            "TO",
+            "TT",
+            "TZ",
+            "UG",
+            "UZ",
+            "VC",
+            "VE",
+            "VU",
+            "WS",
+            "YE",
+            "ZA",
+            "ZM",
+            "ZW"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://ghoapi.azureedge.net/api/RS_198?$filter=SpatialDim%20eq%20%27AFG%27",
+          "sample_title": "WHO GHO: Estimated road traffic death rate (per 100 000 population) - Afghanistan",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-14"
+        },
+        {
+          "service": "Pape Dawson",
+          "display": "Pape Dawson",
+          "host": "maps.pape-dawson.com",
+          "endpoints_in_bucket": 122,
+          "endpoints_in_pack": 122,
+          "country_codes": [
+            "US"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://maps.pape-dawson.com/server2/rest/services/Traffic/TRAFFIC__Crash/FeatureServer/0/query?where=1%3D1&outFields=*&resultRecordCount=10&f=json",
+          "sample_title": "maps.pape-dawson.com: Traffic/TRAFFIC__Crash / HSIP - Fatal Crashes",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "Vvs",
+          "display": "Vvs",
+          "host": "www3.vvs.de",
+          "endpoints_in_bucket": 106,
+          "endpoints_in_pack": 198,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 2,
+          "sample_url": "https://www3.vvs.de/mngvvs/XML_DM_REQUEST?outputFormat=rapidJSON&type_dm=stop&name_dm=de%3A08111%3A170&mode=direct&useRealtime=1&limit=10",
+          "sample_title": "VVS Verkehrs- und Tarifverbund Stuttgart: EFA departure monitor (rapidJSON)",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "id": "app",
+      "name": "App features",
+      "title": "Roadworks, closures and crash maps",
+      "filter": "title matches /roadwork|baustell|construction site|work zone|road ?clos|lane clos|traffic clos|closures|detour|umleitung|sperrung|cantier|chantier|lavori|crash|collision|accident|unfall|incident|fatalit|injur/i AND (subcategory matches /ArcGIS|WFS|WMS|GEOJSON|KML|GML|OpenDataSoft|opendatasoft|socrata/i OR format is geojson)",
+      "endpoints": 1080,
+      "notes": [
+        "104 of these are roadworks, construction-site, closure or detour layers; the others are crash, collision and incident layers."
+      ],
+      "criteria": "Services in this pack with the most endpoints that match this bucket and passed a data call. Ties go to the service with more country codes, then by name. Only services with at least one bucket row that matches the focus rule are listed, and the sample comes from those rows; the counts cover the whole bucket. The sample URL is the first row by URL sort after preferring, in this order: rows that match the bucket's sample preference when it has one, rows that return values rather than describe a dataset or a service (not ERDDAP /info/ pages, OGC GetCapabilities requests, bare OWS addresses, PxWeb tables, UN SDG series lists, Statistics Canada download pointers, WorldPop listings, GTFS validation reports, untitled rows or service root addresses), and agent-ready rows. Sample preference in this bucket: title matches /roadwork|baustell|construction site|work zone|road ?clos|lane clos|traffic clos|closures|detour|umleitung|sperrung|cantier|chantier|lavori/i. Services named \"ArcGIS organization\" hold map layers from many owners and are added only when fewer than 5 other services match.",
+      "services": [
+        {
+          "service": "University of Calgary (ArcGIS Online)",
+          "display": "University of Calgary (ArcGIS Online)",
+          "host": "services2.arcgis.com",
+          "endpoints_in_bucket": 65,
+          "endpoints_in_pack": 74,
+          "country_codes": [
+            "CA",
+            "GB",
+            "US"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://services2.arcgis.com/XSv3KNGfmrd1txPN/arcgis/rest/services/Calgary_Traffic_Incidents/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&resultRecordCount=5&f=json",
+          "sample_title": "Calgary Traffic Incidents",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-14"
+        },
+        {
+          "service": "Sarpy",
+          "display": "Sarpy",
+          "host": "geodata.sarpy.com",
+          "endpoints_in_bucket": 37,
+          "endpoints_in_pack": 37,
+          "country_codes": [
+            "US"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://geodata.sarpy.com/arcgis/rest/services/PublicWorks/Accidents/MapServer/1/query?where=1%3D1&outFields=*&resultRecordCount=10&f=json",
+          "sample_title": "geodata.sarpy.com: PublicWorks/Accidents / Traffic Accidents - Personal Injury",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "City of Lincoln/Lancaster County, NE Maps & Apps (ArcGIS Online)",
+          "display": "City of Lincoln/Lancaster County, NE Maps & Apps (ArcGIS Online)",
+          "host": "services1.arcgis.com",
+          "endpoints_in_bucket": 21,
+          "endpoints_in_pack": 33,
+          "country_codes": [
+            "US"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://services1.arcgis.com/wpJGOi6N4Rq5cqFv/arcgis/rest/services/LPD_Incident_Reports_2013/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&resultRecordCount=5&f=json",
+          "sample_title": "LPD_Incident_Reports_2013",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-14"
+        },
+        {
+          "service": "Pape Dawson",
+          "display": "Pape Dawson",
+          "host": "maps.pape-dawson.com",
+          "endpoints_in_bucket": 20,
+          "endpoints_in_pack": 122,
+          "country_codes": [
+            "US"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://maps.pape-dawson.com/server2/rest/services/Traffic/TRAFFIC__Crash/FeatureServer/0/query?where=1%3D1&outFields=*&resultRecordCount=10&f=json",
+          "sample_title": "maps.pape-dawson.com: Traffic/TRAFFIC__Crash / HSIP - Fatal Crashes",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "Vanderbilt University (ArcGIS Online)",
+          "display": "Vanderbilt University (ArcGIS Online)",
+          "host": "services3.arcgis.com",
+          "endpoints_in_bucket": 16,
+          "endpoints_in_pack": 17,
+          "country_codes": [
+            "US"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://services3.arcgis.com/58WV6GqBWodG9Kll/arcgis/rest/services/2015_Q1_Traffic_Crashes/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&resultRecordCount=5&f=json",
+          "sample_title": "2015_Q1_Traffic_Crashes",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-14"
+        },
+        {
+          "service": "Hub Community (ArcGIS Online)",
+          "display": "Hub Community (ArcGIS Online)",
+          "host": "services9.arcgis.com",
+          "endpoints_in_bucket": 15,
+          "endpoints_in_pack": 18,
+          "country_codes": [
+            "US"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://services9.arcgis.com/2ynJbr9BE17vXxR8/arcgis/rest/services/Hot_Spot_Traffic_Collision_Tim_Mates/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&resultRecordCount=5&f=json",
+          "sample_title": "Hot_Spot_Traffic_Collision_Tim_Mates",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "Tualatin",
+          "display": "Tualatin",
+          "host": "tualgis.ci.tualatin.or.us",
+          "endpoints_in_bucket": 12,
+          "endpoints_in_pack": 23,
+          "country_codes": [
+            "US"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://tualgis.ci.tualatin.or.us/server/rest/services/Police/TrafficAccidentDispatches/MapServer/0/query?where=1%3D1&outFields=*&resultRecordCount=10&f=json",
+          "sample_title": "tualgis.ci.tualatin.or.us: Police/TrafficAccidentDispatches / Traffic Accident-Related Dispatches",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "ATCS' iMap (ArcGIS Online)",
+          "display": "ATCS' iMap (ArcGIS Online)",
+          "host": "services7.arcgis.com",
+          "endpoints_in_bucket": 11,
+          "endpoints_in_pack": 11,
+          "country_codes": [
+            "US"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://services7.arcgis.com/o6plJdaG225lwC4T/arcgis/rest/services/CollisionType_Merge1/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=false&resultRecordCount=5&f=json",
+          "sample_title": "CollisionType_Merge1",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-14"
+        }
+      ]
+    },
+    {
+      "id": "grounding",
+      "name": "Grounding and data pipelines",
+      "title": "Counting-station files and road-safety tables for scheduled loads",
+      "filter": "(format in (csv, zip, xml, txt) OR subcategory contains \"WHO Global Health Observatory\") AND NOT title matches /vessel|\\bships?\\b|shipping|port call|maritime|seaport|\\bports?\\b|railway|\\brail\\b|\\btrains?\\b|air traffic|air passenger|airport|aviation|airline|aircraft|flight|buoy|cableway|ropeway|seilbahn/i AND NOT host is apps.villingen-schwenningen.de",
+      "endpoints": 9092,
+      "notes": [
+        "1586 of these are BASt yearly files of hourly counts at one German counting station (zip of CSV)."
+      ],
+      "criteria": "Services in this pack with the most endpoints that match this bucket and passed a data call. Ties go to the service with more country codes, then by name. Only services with at least one bucket row that matches the focus rule are listed, and the sample comes from those rows; the counts cover the whole bucket. The sample URL is the first row by URL sort after preferring, in this order: rows that match the bucket's sample preference when it has one, rows that return values rather than describe a dataset or a service (not ERDDAP /info/ pages, OGC GetCapabilities requests, bare OWS addresses, PxWeb tables, UN SDG series lists, Statistics Canada download pointers, WorldPop listings, GTFS validation reports, untitled rows or service root addresses), and agent-ready rows. Sample preference in this bucket: title matches /traffic count|counting|zählstelle|zaehlstelle|aadt|traffic volume|volume|traffic flow|flows|speed|traffic measurement|tms|verkehrsmenge|verkehrsstärke|census|crash|collision|accident|unfall|incident|fatalit|injur/i. Services named \"ArcGIS organization\" hold map layers from many owners and are added only when fewer than 5 other services match.",
+      "services": [
+        {
+          "service": "Bast",
+          "display": "Bast",
+          "host": "www.bast.de",
+          "endpoints_in_bucket": 1586,
+          "endpoints_in_pack": 1586,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "zip"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://www.bast.de/videos/2003/zst1108.zip",
+          "sample_title": "Automatic counting station Bad Schwartau 2003",
+          "sample_format": "zip",
+          "sample_last_tested": "2026-11-14"
+        },
+        {
+          "service": "Transparenzportal Hamburg",
+          "display": "Transparenzportal Hamburg",
+          "host": "archiv.transparenz.hamburg.de",
+          "endpoints_in_bucket": 1135,
+          "endpoints_in_pack": 1298,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "xml",
+            "csv",
+            "zip",
+            "txt"
+          ],
+          "formats_in_pack": 5,
+          "sample_url": "https://archiv.transparenz.hamburg.de/hmbtgarchive/HMDK/de_hh_inspire_wfs_svz_zaehlstellenbereiche_119386_snap_1.XML",
+          "sample_title": "Zählstellenbereiche von Straßenverkehrszählungen Hamburg - Dienst \"WFS Zählstellenbereiche von Straßenverkehrszählungen Hamburg\" (GetCapabilities)",
+          "sample_format": "xml",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "Toscana",
+          "display": "Toscana",
+          "host": "dati.toscana.it",
+          "endpoints_in_bucket": 945,
+          "endpoints_in_pack": 946,
+          "country_codes": [
+            "IT"
+          ],
+          "formats": [
+            "csv",
+            "txt"
+          ],
+          "formats_in_pack": 2,
+          "sample_url": "https://dati.toscana.it/dataset/7ef18c01-f493-4342-a23f-8aa6be337edd/resource/3bd7b767-b4c2-4df6-a15b-aa64dd5bcffb/download/tabellaopendefinitiva.csv",
+          "sample_title": "EDIT (Epidemiology of the Determinants of Road Traffic Injury in Tuscany)",
+          "sample_format": "csv",
+          "sample_last_tested": "2026-11-14"
+        },
+        {
+          "service": "s3.eu-west-2.amazonaws.com",
+          "display": "s3.eu-west-2.amazonaws.com",
+          "host": "s3.eu-west-2.amazonaws.com",
+          "endpoints_in_bucket": 348,
+          "endpoints_in_pack": 348,
+          "country_codes": [
+            "GB"
+          ],
+          "formats": [
+            "csv",
+            "xml"
+          ],
+          "formats_in_pack": 2,
+          "sample_url": "https://s3.eu-west-2.amazonaws.com/data.highwaysengland.co.uk/ha-roadworks/HE_roadworks_2021_05_31.xml",
+          "sample_title": "s3.eu-west-2.amazonaws.com: Planned road works on the National Highways road network / Highways England Road Network - 31 May 2021",
+          "sample_format": "csv",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "www.landesdatenbank.nrw.de",
+          "display": "www.landesdatenbank.nrw.de",
+          "host": "www.landesdatenbank.nrw.de",
+          "endpoints_in_bucket": 205,
+          "endpoints_in_pack": 205,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "txt",
+            "xml"
+          ],
+          "formats_in_pack": 2,
+          "sample_url": "https://www.landesdatenbank.nrw.de/ldbnrwws/downloader/00/tables/46241-01i_00.csv",
+          "sample_title": "Road traffic accidents and accidents - Municipalities - Year",
+          "sample_format": "txt",
+          "sample_last_tested": "2026-11-14"
+        },
+        {
+          "service": "geodienste.hamburg.de",
+          "display": "geodienste.hamburg.de",
+          "host": "geodienste.hamburg.de",
+          "endpoints_in_bucket": 186,
+          "endpoints_in_pack": 195,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "xml",
+            "zip"
+          ],
+          "formats_in_pack": 3,
+          "sample_url": "https://geodienste.hamburg.de/HH_WFS_DB_Rad_Plus?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&typename=de.hh.up:aktuelles_jahr%2Cde.hh.up:letzte_woche%2Cde.hh.up:jahr2022%2Cde.hh.up:jahr2023%2Cde.hh.up:jahr2024%2Cde.hh.up:jahr2025",
+          "sample_title": "Cycle traffic volumes (DB Rad+) Hamburg",
+          "sample_format": "xml",
+          "sample_last_tested": "2026-11-14"
+        },
+        {
+          "service": "Azureedge",
+          "display": "Azureedge",
+          "host": "ghoapi.azureedge.net",
+          "endpoints_in_bucket": 130,
+          "endpoints_in_pack": 130,
+          "country_codes": [
+            "AF",
+            "AG",
+            "AO",
+            "AZ",
+            "BA",
+            "BB",
+            "BD",
+            "BF",
+            "BG",
+            "BI",
+            "BJ",
+            "BN",
+            "BO",
+            "BS",
+            "BT",
+            "BW",
+            "BY",
+            "BZ",
+            "CD",
+            "CF",
+            "CG",
+            "CI",
+            "CM",
+            "CR",
+            "CU",
+            "CV",
+            "CY",
+            "DJ",
+            "DZ",
+            "EE",
+            "EG",
+            "ER",
+            "ET",
+            "FJ",
+            "FM",
+            "GA",
+            "GD",
+            "GE",
+            "GH",
+            "GM",
+            "GN",
+            "GQ",
+            "GT",
+            "GW",
+            "GY",
+            "HN",
+            "HT",
+            "IQ",
+            "IR",
+            "JM",
+            "JO",
+            "KE",
+            "KH",
+            "KI",
+            "KM",
+            "KP",
+            "KW",
+            "KZ",
+            "LA",
+            "LB",
+            "LC",
+            "LK",
+            "LR",
+            "LS",
+            "LT",
+            "LU",
+            "LY",
+            "MA",
+            "MD",
+            "ME",
+            "MG",
+            "MK",
+            "ML",
+            "MM",
+            "MN",
+            "MR",
+            "MT",
+            "MU",
+            "MV",
+            "MW",
+            "MY",
+            "MZ",
+            "NA",
+            "NE",
+            "NG",
+            "NI",
+            "NP",
+            "OM",
+            "PE",
+            "PG",
+            "PH",
+            "PR",
+            "PS",
+            "PY",
+            "QA",
+            "RS",
+            "RU",
+            "RW",
+            "SA",
+            "SB",
+            "SC",
+            "SD",
+            "SG",
+            "SI",
+            "SL",
+            "SO",
+            "SR",
+            "SS",
+            "ST",
+            "SV",
+            "SY",
+            "SZ",
+            "TD",
+            "TJ",
+            "TL",
+            "TM",
+            "TN",
+            "TO",
+            "TT",
+            "TZ",
+            "UG",
+            "UZ",
+            "VC",
+            "VE",
+            "VU",
+            "WS",
+            "YE",
+            "ZA",
+            "ZM",
+            "ZW"
+          ],
+          "formats": [
+            "json"
+          ],
+          "formats_in_pack": 1,
+          "sample_url": "https://ghoapi.azureedge.net/api/RS_198?$filter=SpatialDim%20eq%20%27AFG%27",
+          "sample_title": "WHO GHO: Estimated road traffic death rate (per 100 000 population) - Afghanistan",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-14"
+        },
+        {
+          "service": "Vvo Online",
+          "display": "Vvo Online",
+          "host": "efa.vvo-online.de",
+          "endpoints_in_bucket": 129,
+          "endpoints_in_pack": 273,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "xml"
+          ],
+          "formats_in_pack": 2,
+          "sample_url": "https://efa.vvo-online.de/VMSSL3/XML_DM_REQUEST?outputFormat=XML&type_dm=stop&name_dm=de%3A06533%3A28298&mode=direct&useRealtime=1&limit=10",
+          "sample_title": "VVO Verkehrsverbund Oberelbe: EFA departure monitor (XML)",
+          "sample_format": "xml",
+          "sample_last_tested": "2026-11-15"
+        }
+      ]
+    },
+    {
+      "id": "evals",
+      "name": "Evals and testing",
+      "title": "Station queries, map layers and files to test a traffic tool",
+      "filter": "the whole pack",
+      "endpoints": 24641,
+      "notes": [],
+      "criteria": "Services in this pack that returned the most different formats, then the most endpoints that passed a data call, then by name: a mix of response shapes to test parsers and tool calls. Only services with at least one bucket row that matches the focus rule are listed, and the sample comes from those rows; the counts cover the whole bucket. The sample URL is the first row by URL sort after preferring, in this order: rows that match the bucket's sample preference when it has one, rows that return values rather than describe a dataset or a service (not ERDDAP /info/ pages, OGC GetCapabilities requests, bare OWS addresses, PxWeb tables, UN SDG series lists, Statistics Canada download pointers, WorldPop listings, GTFS validation reports, untitled rows or service root addresses), and agent-ready rows. Services named \"ArcGIS organization\" hold map layers from many owners and are added only when fewer than 5 other services match.",
+      "services": [
+        {
+          "service": "Transparenzportal Hamburg",
+          "display": "Transparenzportal Hamburg",
+          "host": "archiv.transparenz.hamburg.de",
+          "endpoints_in_bucket": 1298,
+          "endpoints_in_pack": 1298,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "xml",
+            "json",
+            "csv",
+            "zip",
+            "txt"
+          ],
+          "formats_in_pack": 5,
+          "sample_url": "https://archiv.transparenz.hamburg.de/hmbtgarchive/HMDK/datastreams_111908_snap_7.JSON",
+          "sample_title": "Showcase Traffic Light Forecast Hamburg - STA Layerabfrage: Primärsignal je Fahrspurbezieheung - letzte 10 Beobachtungswerte (JSON)",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "Dublinked Open Data for the Dublin Regio",
+          "display": "Dublinked Open Data for the Dublin Regio",
+          "host": "data.smartdublin.ie",
+          "endpoints_in_bucket": 87,
+          "endpoints_in_pack": 87,
+          "country_codes": [
+            "IE"
+          ],
+          "formats": [
+            "csv",
+            "geojson",
+            "xml",
+            "json",
+            "zip"
+          ],
+          "formats_in_pack": 5,
+          "sample_url": "https://data.smartdublin.ie/dataset/05da7841-8cc0-4b15-80ee-099c076add64/resource/2f4f8674-d0b1-4c2e-8caf-25b930196fe8/download/dlr-speed-limit-bye-laws-2024.geojson",
+          "sample_title": "DLR Road Traffic Special Speed Limit Bye Laws 2024",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-14"
+        },
+        {
+          "service": "Open Data-Portal der Stadt Leipzig",
+          "display": "Open Data-Portal der Stadt Leipzig",
+          "host": "geodienste.leipzig.de",
+          "endpoints_in_bucket": 82,
+          "endpoints_in_pack": 82,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "geojson",
+            "xml",
+            "csv",
+            "json",
+            "txt"
+          ],
+          "formats_in_pack": 5,
+          "sample_url": "https://geodienste.leipzig.de/l3/OpenData/wfs?VERSION=1.3.0&REQUEST=getFeature&typeName=OpenData%3AStrassen_Segmente&outputFormat=csv",
+          "sample_title": "Straßennetz, Stadt Leipzig - Das Straßennetz im CSV-Format",
+          "sample_format": "csv",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "daten.stadt.sg.ch",
+          "display": "daten.stadt.sg.ch",
+          "host": "daten.stadt.sg.ch",
+          "endpoints_in_bucket": 46,
+          "endpoints_in_pack": 46,
+          "country_codes": [
+            "CH"
+          ],
+          "formats": [
+            "json",
+            "xml",
+            "csv",
+            "txt",
+            "geojson"
+          ],
+          "formats_in_pack": 5,
+          "sample_url": "https://daten.stadt.sg.ch/api/explore/v2.1/catalog/datasets/strassenverkehrsunfallorte/records?limit=1",
+          "sample_title": "strassenverkehrsunfallorte",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-12"
+        },
+        {
+          "service": "geoservice.norderstedt.de",
+          "display": "geoservice.norderstedt.de",
+          "host": "geoservice.norderstedt.de",
+          "endpoints_in_bucket": 20,
+          "endpoints_in_pack": 20,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "xml",
+            "csv",
+            "geojson",
+            "json",
+            "zip"
+          ],
+          "formats_in_pack": 5,
+          "sample_url": "https://geoservice.norderstedt.de/geoserver/vms/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=vms:stvkinfoweb&outputFormat=CSV",
+          "sample_title": "Baustelleninformation - Download als CSV",
+          "sample_format": "csv",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "Hong Kong Open Data Portal",
+          "display": "Hong Kong Open Data Portal",
+          "host": "static.data.gov.hk",
+          "endpoints_in_bucket": 15,
+          "endpoints_in_pack": 15,
+          "country_codes": [
+            "HK"
+          ],
+          "formats": [
+            "zip",
+            "csv",
+            "txt",
+            "json",
+            "xml"
+          ],
+          "formats_in_pack": 5,
+          "sample_url": "https://static.data.gov.hk/opendata/dataset/traffic-speed/traffic-speed-info.json",
+          "sample_title": "Traffic Speed Map (City Dashboard Version) - Traffic Speed Map (City Dashboard Version) Link Information",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-15"
+        },
+        {
+          "service": "geo.sv.rostock.de",
+          "display": "geo.sv.rostock.de",
+          "host": "geo.sv.rostock.de",
+          "endpoints_in_bucket": 124,
+          "endpoints_in_pack": 124,
+          "country_codes": [
+            "DE"
+          ],
+          "formats": [
+            "xml",
+            "csv",
+            "geojson",
+            "json"
+          ],
+          "formats_in_pack": 4,
+          "sample_url": "https://geo.sv.rostock.de/download/opendata/lichtsignalanlagen/lichtsignalanlagen.json",
+          "sample_title": "Light signalling systems",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-14"
+        },
+        {
+          "service": "Wien",
+          "display": "Wien",
+          "host": "data.wien.gv.at",
+          "endpoints_in_bucket": 79,
+          "endpoints_in_pack": 79,
+          "country_codes": [
+            "AT"
+          ],
+          "formats": [
+            "xml",
+            "csv",
+            "geojson",
+            "json"
+          ],
+          "formats_in_pack": 4,
+          "sample_url": "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:AKUSTISCHEAMPELOGD&srsName=EPSG:4326&outputFormat=json",
+          "sample_title": "Traffic lights with acoustic identification Locations Vienna",
+          "sample_format": "json",
+          "sample_last_tested": "2026-11-14"
+        }
+      ]
+    }
+  ]
+}
